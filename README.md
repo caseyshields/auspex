@@ -5,7 +5,7 @@ Learning arduino by building a compact rangefinger for warhammer. Praise the mot
 ## Controller - Arduino Nano
 
 I'm using [Arduino IDE](https://www.arduino.cc/en/Main/Software) to develop the program.
-I think I have an older version of A Robotdyne clone with a built in USB programmer;
+I think I have an older version of A [Robotdyne](https://robotdyn.com/nano-v3-atmega-328-usb-ttl-ch340g-micro-usb-with-cable-soldered.html) clone with a built in USB programmer;
  - Tools->Board: Arduino Nano
  - Tools->Processor: ATmega328P (Old Bootloader)
 
@@ -45,8 +45,15 @@ I use [Polulu's VL53L0X library](https://github.com/pololu/vl53l0x-arduino) to c
 
 ## Notes
 
+ - [Arduino Language Reference](https://www.arduino.cc/reference/en/)
  - To install the needed libraries go to Tools->Manage Libraries and search for the above projects
  - I cobbled the hardware together from cheap clones bundled from kits and some amazon searches; Going forward I'll buy some from people making the convenient software and kits. Here are some links;
    - Arduino [nano](https://store.arduino.cc/usa/arduino-nano)
    - polulu's [VL53L0X](https://www.pololu.com/product/2490) carrier
    - adafruit's [SDD1306](https://www.adafruit.com/product/326) carrier
+ - I2C
+   - [Wikipedia](https://en.wikipedia.org/wiki/I%C2%B2C)
+   - [Nick Gammon post](https://gammon.com.au/i2c)
+   - [Level Shifter](https://playground.arduino.cc/Main/I2CBi-directionalLevelShifter/)
+ - Power
+   - [Arduino playground articles](https://playground.arduino.cc/Main/IntWithHW-PwrSup/)
