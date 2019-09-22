@@ -13,8 +13,6 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 unsigned int px = 0;
 int v[SCREEN_WIDTH];
-//int py = 64;
-//int vy = 0;
 
 void setup() {
   Serial.begin(9600);
@@ -23,9 +21,9 @@ void setup() {
   sensor.init();
   sensor.setTimeout(500);
   sensor.startContinuous();
-  
+
   // clear the array of readings
-  for (int n=0; n<SCREEN_WIDTH; n++)
+  for (int n = 0; n < SCREEN_WIDTH; n++)
     v[n] = 0;
 
   // seed the rng
@@ -34,7 +32,7 @@ void setup() {
   // initialize the display
   if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { // generate display voltage from 3.3v internally?
     Serial.println(F("SSD1306 allocation failed"));
-    for(;;);
+    for (;;);
   }
   display.setTextSize(5);
   display.setTextColor(INVERSE);
@@ -43,80 +41,46 @@ void setup() {
   display.display();
   delay(100);
 
-//  display.startscrollright(0x00,0x0f);
+  //  display.startscrollright(0x00,0x0f);
 }
 
 void loop() {
   display.clearDisplay();
-  
-//  // simulate a smoothly varying measurement.
-//  vy += (random(5)-3);
-//  if (vy<-4)
-//    vy=0;//-4;
-//  else if (vy>4)
-//    vy=0;//4;
-//  
-//  py += vy;
-//  if (py<0)
-//    py = 0;
-//  else if (py>=SCREEN_HEIGHT)
-//    py = SCREEN_HEIGHT-1;
-//  v[px] = py;
+
+  //  // simulate a smoothly varying measurement.
+  //  vy += (random(5)-3);
+  //  if (vy<-4)
+  //    vy=0;//-4;
+  //  else if (vy>4)
+  //    vy=0;//4;
+  //
+  //  py += vy;
+  //  if (py<0)
+  //    py = 0;
+  //  else if (py>=SCREEN_HEIGHT)
+  //    py = SCREEN_HEIGHT-1;
+  //  v[px] = py;
 
   v[px] = sensor.readRangeContinuousMillimeters();
   v[px] /= 10;
-  if (v[px]>64)
-    v[px]=64;
+  if (v[px] > 64)
+    v[px] = 64;
 
-  for (int n=0; n<SCREEN_WIDTH; n++)
-    display.drawFastVLine(n, 0, v[(n+px)%SCREEN_WIDTH], WHITE);
+  for (int n = 0; n < SCREEN_WIDTH; n++)
+    display.drawFastVLine(n, 0, v[(n + px) % SCREEN_WIDTH], WHITE);
 
-  display.setCursor(15,15);
+  display.setCursor(15, 15);
   display.print(String(v[px]));
 
-  px = (px+1) % SCREEN_WIDTH;
+  px = (px + 1) % SCREEN_WIDTH;
   display.display();
   delay(50);
 }
 
-///* This example shows how to use continuous mode to take
-//range measurements with the VL53L0X. It is based on
-//vl53l0x_ContinuousRanging_Example.c from the VL53L0X API.
-//
-//The range readings are in units of mm. */
-//
-//#include <Wire.h>
-//#include <VL53L0X.h>
-//
-//VL53L0X sensor;
-//
-//void setup()
-//{
-//  Serial.begin(9600);
-//  Wire.begin();
-//
-//  sensor.init();
-//  sensor.setTimeout(500);
-//
-//  // Start continuous back-to-back mode (take readings as
-//  // fast as possible).  To use continuous timed mode
-//  // instead, provide a desired inter-measurement period in
-//  // ms (e.g. sensor.startContinuous(100)).
-//  sensor.startContinuous();
-//}
-//
-//void loop()
-//{
-//  Serial.print(sensor.readRangeContinuousMillimeters());
-//  if (sensor.timeoutOccurred()) { Serial.print(" TIMEOUT"); }
-//
-//  Serial.println();
-//}
-
 //// try an approach where we only update the measurement and a single column everyframe...
 //void loop() { // unfortunately I can't really figure out how to update the buffer and scroll it simultaneously...
-//  
-////  px = (px+1) % SCREEN_WIDTH;  
+//
+////  px = (px+1) % SCREEN_WIDTH;
 //  display.drawFastVLine(px, 0, SCREEN_HEIGHT, BLACK);
 //  py = random(0, SCREEN_HEIGHT);
 //  display.drawFastVLine(px, 0, py, WHITE);
@@ -125,7 +89,7 @@ void loop() {
 //  // scroll screen horizontally
 //  // write new measurement?
 //  // optionally we can just see how fast we can draw the whole screen...
-//  
+//
 ////  display.display();
 //  delay(50);
 //}
