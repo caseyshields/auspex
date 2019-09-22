@@ -52,11 +52,11 @@ void loop() {
   } // TODO I should sample faster and display a bounds!
 
   // print the current distance in inches
-  double inches = ((int)(v[px] * MM2IN * 10))/10.0;
-  String s = String(inches);//+"\"";
+  double inches = v[px] * MM2IN;
+  String label = String(inches, 1);
+  label.concat("\"");
   display.setCursor(15, 15);
-  display.print(s);
-//  Serial.println(s);
+  display.print(label);
 
   px = (px + 1) % SCREEN_WIDTH;
   display.display();
